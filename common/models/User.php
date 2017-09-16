@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\models\dto\UserDto;
 use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -18,6 +17,7 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
+ * @property string $access_token
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -78,7 +78,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['access_token' => $token]);
     }
 
     /**
@@ -206,7 +206,13 @@ class User extends ActiveRecord implements IdentityInterface
         $user->username = $dto->getUserName();
         $user->email = $dto->getEmail();
         $user->setPassword($dto->getPassword());
+        $user->setAccessToken();
         $user->generateAuthKey();
         return $user;
+    }
+
+    private function setAccessToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString(40);
     }
 }
