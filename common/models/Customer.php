@@ -2,14 +2,14 @@
 
 namespace common\models;
 
-use Yii;
 
 /**
  * This is the model class for table "{{%customer}}".
  *
  * @property int $id
- * @property string $firstName
- * @property string $lastName
+ * @property string $first_name
+ * @property string $last_name
+ * @property CustomerPhone[] $phones
  */
 class Customer extends \yii\db\ActiveRecord
 {
@@ -27,8 +27,8 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstName', 'lastName'], 'required'],
-            [['firstName', 'lastName'], 'string', 'max' => 255],
+            [['first_name', 'last_name'], 'required'],
+            [['first_name', 'last_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,8 +39,16 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'firstName' => 'First Name',
-            'lastName' => 'Last Name',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhones()
+    {
+        return $this->hasMany(CustomerPhone::class, ['customer_id' => 'id']);
     }
 }
