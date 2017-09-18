@@ -2,7 +2,7 @@
 
 namespace common\amqp;
 
-use frontend\models\CustomerDtoInterface;
+use frontend\models\customer\CustomerDtoInterface;
 use frontend\services\customer\CustomerServiceInterface;
 use yii\queue\Job;
 

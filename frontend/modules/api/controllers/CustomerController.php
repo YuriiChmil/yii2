@@ -4,7 +4,7 @@ namespace frontend\modules\api\controllers;
 
 use common\amqp\CustomerJob;
 use common\models\Customer;
-use frontend\models\CustomerForm;
+use frontend\models\customer\CustomerForm;
 use frontend\services\customer\CustomerServiceInterface;
 use yii\rest\ActiveController;
 use yii\filters\auth\HttpBearerAuth;
@@ -68,7 +68,7 @@ class CustomerController extends ActiveController
         $form->load(Yii::$app->request->getBodyParams(), '');
         if ($form->validate()) {
             Yii::$app->queue->push(new CustomerJob($this->customerService, $form));
-            return $this->response->setStatusCode(201);
+           return $this->response->setStatusCode(201);
         }
         return $form;
     }

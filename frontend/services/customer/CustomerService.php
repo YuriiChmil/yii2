@@ -2,8 +2,8 @@
 
 namespace frontend\services\customer;
 
-use frontend\models\Customer;
-use frontend\models\CustomerDtoInterface;
+use frontend\models\customer\Customer;
+use frontend\models\customer\CustomerDtoInterface;
 use Psr\Log\LoggerInterface;
 
 class CustomerService implements CustomerServiceInterface

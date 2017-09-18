@@ -17,5 +17,6 @@ service php7.0-fpm restart
 service nginx restart
 service mysql restart
 service rabbitmq-server restart
+service elasticsearch restart
 info "Run queue listener"
 /app/yii queue/listen --verbose --color

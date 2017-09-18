@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\customer;
 
 use common\models\Customer;
 use common\models\CustomerPhone;

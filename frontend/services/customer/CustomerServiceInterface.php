@@ -2,7 +2,7 @@
 
 namespace frontend\services\customer;
 
-use frontend\models\CustomerDtoInterface;
+use frontend\models\customer\CustomerDtoInterface;
 
 /**
  * Interface CustomerServiceInterface
