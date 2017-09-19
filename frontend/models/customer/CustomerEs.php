@@ -54,14 +54,29 @@ class CustomerEs extends ActiveRecord
             [
                 'settings' => [
                     'analysis' => [
-                        'analyzer' => [
-                            'ru_analyzer' => [
-                                'type' => 'custom',
-                                'tokenizer' => 'standard',
-                                "filter" => ['lowercase', 'russian_morphology', 'english_morphology'],
+                        'filter' => [
+                            'ru_stop' => [
+                                'type' => 'stop',
+                                'stopwords' => '_russian_'
                             ],
+                            'ru_stemmer' => [
+                                'type' => 'stemmer',
+                                'language' => 'russian'
+                            ]
                         ],
-                    ],
+                        'analyzer' => [
+                            'russian' => [
+                                'char_filter' => ['html_strip'],
+                                'tokenizer' => 'standard',
+                                'filter' => [
+                                    'lowercase',
+                                    'ru_stop',
+                                    'ru_stemmer'
+                                ]
+                            ]
+
+                        ],
+                    ]
                 ],
                 'mappings' => [
                     self::type() => [
@@ -69,7 +84,7 @@ class CustomerEs extends ActiveRecord
                             'id' => ['type' => 'long'],
                             'firstName' => [
                                 'type' => 'string',
-                                "analyzer" => "russian",
+                                'analyzer' => 'russian',
                             ],
                             'lastName' => ['type' => 'string'],
                         ]

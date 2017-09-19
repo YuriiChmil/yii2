@@ -29,6 +29,8 @@ info "Init project"
 
 info "Apply migrations"
 ./yii migrate --interactive=0
+./yii init/create-user --interactive=0
+./yii init/index-customer --interactive=0
 ./yii_test migrate --interactive=0
 
 info "Create bash-alias 'app' for vagrant user"

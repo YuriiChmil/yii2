@@ -35,10 +35,7 @@ class CustomerSearch extends CustomerEs
             return $dataProvider;
         }
         if ($this->firstName) {
-            $query->query(['query_string'=>[
-                'default_field'=>'_all',
-                'query'=>"*".$this->firstName."*",
-            ]]);
+            $query->query(['match_phrase_prefix' => ['firstName' => $this->firstName]]);
         }
 
         return $dataProvider;

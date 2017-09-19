@@ -34,13 +34,17 @@ class InitController extends Controller
     public function actionIndexCustomer()
     {
         try {
-            CustomerEs::createIndex();
+           $this->actionCreateIndex();
             foreach (Customer::find()->each() as $customer) {
                 $customer->updateEsIndex();
             }
         } catch (\Exception $exception) {
-            throw  $exception;
             $this->stderr($exception->getMessage(), Console::FG_RED, Console::UNDERLINE);
         }
+    }
+
+    public function actionCreateIndex()
+    {
+        CustomerEs::createIndex();
     }
 }
